@@ -24,4 +24,9 @@ public class CreditScore {
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinColumn
     private Client client;
+
+    public CreditScore(BigDecimal creditScore,Client client) {
+        this.creditScore = creditScore;
+        this.client=client;
+    }
 }

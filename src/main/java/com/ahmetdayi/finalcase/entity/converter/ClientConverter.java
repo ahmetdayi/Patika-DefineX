@@ -2,13 +2,14 @@ package com.ahmetdayi.finalcase.entity.converter;
 
 import com.ahmetdayi.finalcase.entity.Client;
 import com.ahmetdayi.finalcase.entity.response.CreateClientResponse;
+import com.ahmetdayi.finalcase.entity.response.CreditScore_ClientResponse;
 import com.ahmetdayi.finalcase.entity.response.UpdateClientResponse;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ClientConverter {
 
-    public CreateClientResponse convert(Client from){
+    public CreateClientResponse convert(Client from) {
         return new CreateClientResponse
                 (
                         from.getId(),
@@ -22,7 +23,7 @@ public class ClientConverter {
                 );
     }
 
-    public UpdateClientResponse convertUpdate(Client from){
+    public UpdateClientResponse convertUpdate(Client from) {
         return new UpdateClientResponse
                 (
                         from.getId(),
@@ -33,6 +34,15 @@ public class ClientConverter {
                         from.getPhoneNumber(),
                         from.getBirthDay(),
                         from.getGuarantee()
+                );
+    }
+
+    public CreditScore_ClientResponse convertCreditScore_Client(Client from) {
+        return new CreditScore_ClientResponse
+                (
+                        from.getNationalityId(),
+                        from.getFirstName(),
+                        from.getLastName()
                 );
     }
 }
