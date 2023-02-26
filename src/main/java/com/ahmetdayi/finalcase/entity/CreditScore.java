@@ -21,7 +21,7 @@ public class CreditScore {
 
     private double creditScore;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE,mappedBy = "creditScore")
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "creditScore")
     private Client client;
 
     public CreditScore(double creditScore) {
