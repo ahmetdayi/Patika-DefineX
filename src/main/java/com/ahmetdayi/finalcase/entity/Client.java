@@ -1,16 +1,15 @@
 package com.ahmetdayi.finalcase.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,15 +32,16 @@ public class Client {
 
     private LocalDate birthDay;
 
-    private BigDecimal guarantee;
+    private double guarantee;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "client")
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn
     private CreditScore creditScore;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "client",cascade = CascadeType.ALL)
     private List<Credit> credits;
 
-    public Client(String nationalityId, String firstName, String lastName, double monthlySalary, String phoneNumber, LocalDate birthDay, BigDecimal guarantee) {
+    public Client(String nationalityId, String firstName, String lastName, double monthlySalary, String phoneNumber, LocalDate birthDay, double guarantee) {
         this.nationalityId = nationalityId;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -16,7 +16,7 @@ public class CreateCreditScoreResponse {
     @NotNull
     private UUID id;
     @NotNull
-    private BigDecimal creditScore;
+    private double creditScore;
 
     @NotNull
     private CreditScore_ClientResponse client;

@@ -40,9 +40,12 @@ public class ClientConverter {
     public CreditScore_ClientResponse convertCreditScore_Client(Client from) {
         return new CreditScore_ClientResponse
                 (
+                        from.getId(),
                         from.getNationalityId(),
                         from.getFirstName(),
                         from.getLastName()
                 );
     }
+
+
 }

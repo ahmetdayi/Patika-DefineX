@@ -1,7 +1,6 @@
 package com.ahmetdayi.finalcase.entity.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ import java.time.LocalDate;
 public class CreateClientRequest {
 
     @NotBlank
+
     private String nationalityId;
     @NotBlank
     private String firstName;
@@ -27,5 +27,5 @@ public class CreateClientRequest {
 
     private LocalDate birthDay;
     @NotNull
-    private BigDecimal guarantee;
+    private double guarantee;
 }

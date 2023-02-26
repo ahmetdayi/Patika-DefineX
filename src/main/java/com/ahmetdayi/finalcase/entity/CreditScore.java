@@ -19,14 +19,13 @@ public class CreditScore {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private BigDecimal creditScore;
+    private double creditScore;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
-    @JoinColumn
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE,mappedBy = "creditScore")
     private Client client;
 
-    public CreditScore(BigDecimal creditScore,Client client) {
+    public CreditScore(double creditScore) {
         this.creditScore = creditScore;
-        this.client=client;
+
     }
 }

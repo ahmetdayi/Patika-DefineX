@@ -19,7 +19,7 @@ public class Credit {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private BigDecimal creditLimit;
+    private double creditLimit;
 
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;
@@ -27,4 +27,10 @@ public class Credit {
     @ManyToOne(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn
     private Client client;
+
+    public Credit(double creditLimit, CreditResult creditResult, Client client) {
+        this.creditLimit = creditLimit;
+        this.creditResult = creditResult;
+        this.client = client;
+    }
 }

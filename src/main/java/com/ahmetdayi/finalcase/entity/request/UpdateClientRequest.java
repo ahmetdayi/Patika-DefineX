@@ -31,5 +31,5 @@ public class UpdateClientRequest {
 
     private LocalDate birthDay;
     @NotNull
-    private BigDecimal guarantee;
+    private double guarantee;
 }
