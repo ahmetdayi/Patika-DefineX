@@ -20,6 +20,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true,nullable = false)
     private String nationalityId;
 
     private String firstName;
@@ -27,7 +28,7 @@ public class Client {
     private String lastName;
 
     private double monthlySalary;
-
+    @Column(unique = true,nullable = false)
     private String phoneNumber;
 
     private LocalDate birthDay;
@@ -40,5 +41,13 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "client",cascade = CascadeType.ALL)
     private List<Credit> credits;
 
-
+    public Client(String nationalityId, String firstName, String lastName, double monthlySalary, String phoneNumber, LocalDate birthDay, BigDecimal guarantee) {
+        this.nationalityId = nationalityId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.monthlySalary = monthlySalary;
+        this.phoneNumber = phoneNumber;
+        this.birthDay = birthDay;
+        this.guarantee = guarantee;
+    }
 }
