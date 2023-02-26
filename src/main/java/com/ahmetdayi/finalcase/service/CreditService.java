@@ -1,7 +1,6 @@
 package com.ahmetdayi.finalcase.service;
 
 import com.ahmetdayi.finalcase.core.exception.ClientDoesntExistException;
-import com.ahmetdayi.finalcase.core.exception.CreditDoesntExistException;
 import com.ahmetdayi.finalcase.core.exception.CreditScoreCalculateException;
 import com.ahmetdayi.finalcase.core.exception.constant.Constant;
 import com.ahmetdayi.finalcase.entity.Client;
@@ -13,18 +12,20 @@ import com.ahmetdayi.finalcase.entity.response.CreateCreditResponse;
 import com.ahmetdayi.finalcase.entity.response.CreditResponse;
 import com.ahmetdayi.finalcase.repository.CreditRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
 
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
+import static com.sun.activation.registries.LogSupport.log;
+
 @Service
 @RequiredArgsConstructor
+
 public class CreditService {
 
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Credit.class);
     private final CreditRepository creditRepository;
     private final ClientService clientService;
 
@@ -40,16 +41,20 @@ public class CreditService {
                         creditResult,
                         client
                 );
+        log.info("Credit created.");
         return creditConverter.convert(creditRepository.save(credit));
     }
     public CreateCreditResponse calculate(UUID clientId){
 
 
         if (creditScoreLessThan500(clientId) != null){
+            log.info("credit calculate");
             return creditScoreLessThan500(clientId);
         } else if (creditScoreGreaterThan500AndLessThan1000(clientId) != null) {
+            log.info("credit calculate");
             return creditScoreGreaterThan500AndLessThan1000(clientId);
         } else if (creditScore_CreditScoreEquals(clientId) != null) {
+            log.info("credit calculate");
             return creditScore_CreditScoreEquals(clientId);
         }else{
             throw new CreditScoreCalculateException(Constant.CREDIT_SCORE_DOESNT_CALCULATE);

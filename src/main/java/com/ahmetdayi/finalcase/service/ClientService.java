@@ -6,29 +6,30 @@ import com.ahmetdayi.finalcase.core.exception.NationalityIdDoesntCorrectExceptio
 import com.ahmetdayi.finalcase.core.exception.PhoneNumberDoesntCorrectException;
 import com.ahmetdayi.finalcase.core.exception.constant.Constant;
 import com.ahmetdayi.finalcase.entity.Client;
-import com.ahmetdayi.finalcase.entity.Credit;
-import com.ahmetdayi.finalcase.entity.CreditResult;
 import com.ahmetdayi.finalcase.entity.CreditScore;
 import com.ahmetdayi.finalcase.entity.converter.ClientConverter;
 import com.ahmetdayi.finalcase.entity.request.CreateClientRequest;
 import com.ahmetdayi.finalcase.entity.request.UpdateClientRequest;
 import com.ahmetdayi.finalcase.entity.response.CreateClientResponse;
-import com.ahmetdayi.finalcase.entity.response.CreateCreditScoreResponse;
 import com.ahmetdayi.finalcase.entity.response.UpdateClientResponse;
 import com.ahmetdayi.finalcase.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.bcel.Const;
+import lombok.extern.log4j.Log4j;
+
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
+import static com.sun.activation.registries.LogSupport.log;
 
 @Service
 @RequiredArgsConstructor
+
 public class ClientService {
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Client.class);
 
     private final ClientRepository clientRepository;
 
@@ -51,7 +52,7 @@ public class ClientService {
         clientCheck(client);
         CreditScore creditScore = creditScoreService.create();
         client.setCreditScore(creditScore);
-        System.out.println(creditScore);
+        log.info("Client created");
         return clientConverter.convert(clientRepository.save(client));
     }
 
@@ -91,10 +92,12 @@ public class ClientService {
         client.setMonthlySalary(request.getMonthlySalary());
         client.setPhoneNumber(request.getPhoneNumber());
 
+        log.info("Client updated");
         return clientConverter.convertUpdate(clientRepository.save(client));
     }
 
     public void deleteById(UUID id) {
+        log.info("Client deleted");
         clientRepository.deleteById(findById(id).getId());
     }
 
